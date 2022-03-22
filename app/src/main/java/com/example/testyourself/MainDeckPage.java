@@ -25,22 +25,16 @@ public class MainDeckPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_deck_page);
 
-        //Get username from previous activity
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("USERNAME");
-
-        //Use username to display username
+        //Use user object to display username
         TextView usernameDisplay = (TextView) findViewById(R.id.textViewUsername);
-        usernameDisplay.setText(username);
+        usernameDisplay.setText(User.username);
 
-        //Creation of XP and level variables and display them
-        int xp = 0;
+        //Displaying the user xp and level
         TextView xpDisplay = (TextView) findViewById(R.id.textViewUserXP);
-        xpDisplay.setText("Current XP: " + Integer.toString(xp));
+        xpDisplay.setText("Current XP: " + Integer.toString(User.xp));
 
-        int level = 1;
         TextView levelDisplay = (TextView) findViewById(R.id.textViewLevel);
-        levelDisplay.setText("Current Level: " + Integer.toString(level));
+        levelDisplay.setText("Current Level: " + Integer.toString(User.level));
 
         //Creating a list of all decks of cards that are being stored
         List<Deck> deckList = new ArrayList<Deck>();
@@ -86,6 +80,7 @@ public class MainDeckPage extends AppCompatActivity {
             }
         }
 
+        //Setting variables for the deck display
         Deck temp = new Deck();
         temp.name = name;
         deckList.add(temp);
@@ -93,6 +88,7 @@ public class MainDeckPage extends AppCompatActivity {
         editText.setText("");
     }
 
+    //method for opening the deck customisation screen
     public void openDeckCreatePage(Deck deck){
         Intent intent = new Intent(this, DeckMakingPage.class);
         intent.putExtra("DECK", (Parcelable) deck);

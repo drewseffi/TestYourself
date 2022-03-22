@@ -33,12 +33,16 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.editTextUsername);
         String username = editText.getText().toString();
 
+        //Populating the user class
+        User.username = username;
+        User.xp = 0;
+        User.level = 1;
+
         //Checking if there was a username input
         if(editText.getText().toString().trim().length() > 0)
         {
             //Opening new activity
             Intent intent = new Intent(this, MainDeckPage.class);
-            intent.putExtra("USERNAME", username);
             startActivity(intent);
         }
         else
