@@ -9,6 +9,7 @@ public class User {
     public static String username;
     public static int level;
     public static int xp;
+    public static String icon;
 
     //Method that checks if the user is required a level up
     public static void levelUpCheck()

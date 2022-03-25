@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,22 @@ public class MainDeckPage extends AppCompatActivity {
         //Populating list view
         ListView listView = (ListView) findViewById(R.id.listView);
         Button createButton = (Button) findViewById(R.id.buttonCreateDeck);
+
+        //Setting profile picture image
+        Toast.makeText(getBaseContext(), User.icon, Toast.LENGTH_SHORT).show();
+        ImageView profile = (ImageView) findViewById(R.id.imageViewProfile);
+        /*if(User.icon == "Cat")
+        {
+            profile.setImageResource(R.drawable.cat);
+        }
+        else if(User.icon == "Banana")
+        {
+            profile.setImageResource(R.drawable.banana);
+        }
+        else if(User.icon == "Brain")
+        {
+            profile.setImageResource(R.drawable.brain);
+        }*/
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, deckNames);
         listView.setAdapter(arrayAdapter);
