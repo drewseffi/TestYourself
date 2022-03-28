@@ -2,7 +2,9 @@ package com.example.testyourself;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,14 +12,35 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+
 public class MainActivity extends AppCompatActivity {
 
     public String selection;
+    SharedPreferences userPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Using shared preferences to store basic user data that will persist
+        userPref = getSharedPreferences("MyUserPreferences", Context.MODE_PRIVATE);
+        String checkuser = userPref.getString("username",null);
+        int checkxp = userPref.getInt("xp", 0);
+        int checklevel = userPref.getInt("level",0);
+        String checkicon = userPref.getString("icon",null);
+
+        //Checking if the user has already set up their account and if they have skipping the opening page
+        if(checkuser != null)
+        {
+            User.username = checkuser;
+            User.xp = checkxp;
+            User.level = checklevel;
+            User.icon = checkicon;
+
+            Intent intent = new Intent(this, MainDeckPage.class);
+            startActivity(intent);
+        }
 
         //Creating an onClickListener for the button that will open the main page of the program
         Button button = (Button) findViewById(R.id.buttonStart);
@@ -50,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //This method will take the text from the username box and will pass it to the main
-    //program page when it also opens it
+    //This method will take the text from the username and will populate the user class
+    //and open the main deck page
     public void openMainDeckPage(){
         //Getting text from username textbox
         EditText editText = (EditText) findViewById(R.id.editTextUsername);
@@ -71,6 +94,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, MainDeckPage.class);
                 startActivity(intent);
                 User.icon = selection;
+
+                SharedPreferences.Editor editor = userPref.edit();
+                editor.putString("username", User.username);
+                editor.putInt("xp", User.xp);
+                editor.putInt("level", User.level);
+                editor.putString("icon", User.icon);
+                editor.commit();
             }
             else
             {
