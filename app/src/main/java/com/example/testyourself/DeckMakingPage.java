@@ -71,7 +71,7 @@ public class DeckMakingPage extends AppCompatActivity {
 
     }
 
-    //method that adds new card to deck and to array adapter
+    //Method that adds new card to deck and to array adapter
     public void createCard(Deck deck, ArrayAdapter<String> arrayAdapter, String front, String back)
     {
         deck.front.add(front);

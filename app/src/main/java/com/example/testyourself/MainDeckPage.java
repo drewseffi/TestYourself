@@ -3,6 +3,7 @@ package com.example.testyourself;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
@@ -12,12 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainDeckPage extends AppCompatActivity {
 
@@ -36,6 +39,25 @@ public class MainDeckPage extends AppCompatActivity {
 
         TextView levelDisplay = (TextView) findViewById(R.id.textViewLevel);
         levelDisplay.setText("Current Level: " + Integer.toString(User.level));
+
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBarXp);
+        progressBar.setMax(100);
+        progressBar.setProgress(User.xp);
+
+        //Displaying user icon
+        ImageView icon = (ImageView) findViewById(R.id.imageViewMainIcon);
+        if(User.icon.equals("Cat"))
+        {
+            icon.setImageResource(R.drawable.cat);
+        }
+        else if(User.icon.equals("Banana"))
+        {
+            icon.setImageResource(R.drawable.banana);
+        }
+        else if(User.icon.equals("Brain"))
+        {
+            icon.setImageResource(R.drawable.brain);
+        }
 
         //Creating a list of all decks of cards that are being stored
         List<Deck> deckList = new ArrayList<Deck>();
@@ -89,7 +111,7 @@ public class MainDeckPage extends AppCompatActivity {
         editText.setText("");
     }
 
-    //method for opening the deck customisation screen
+    //Method for opening the deck customisation screen
     public void openDeckCreatePage(Deck deck){
         Intent intent = new Intent(this, DeckMakingPage.class);
         intent.putExtra("DECK", (Parcelable) deck);

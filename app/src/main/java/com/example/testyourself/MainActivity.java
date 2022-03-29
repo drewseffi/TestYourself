@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     public String selection;
-    SharedPreferences userPref;
+    public static SharedPreferences userPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +24,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Using shared preferences to store basic user data that will persist
+        //Idea from https://stackoverflow.com/questions/29284705/saving-data-upon-closing-app-and-retrieving-that-data
         userPref = getSharedPreferences("MyUserPreferences", Context.MODE_PRIVATE);
         String checkuser = userPref.getString("username",null);
         int checkxp = userPref.getInt("xp", 0);
         int checklevel = userPref.getInt("level",0);
         String checkicon = userPref.getString("icon",null);
+
 
         //Checking if the user has already set up their account and if they have skipping the opening page
         if(checkuser != null)
@@ -57,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                 RadioButton rb = (RadioButton) view;
 
                 selection = rb.getText().toString();
-                Toast.makeText(getBaseContext(), selection, Toast.LENGTH_SHORT).show();
             }
         };
 

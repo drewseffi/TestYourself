@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TestYourself">
         <activity
+            android:name=".Popup"
+            android:exported="false" />
+        <activity
             android:name=".WorkingScreen"
             android:exported="false" />
         <activity

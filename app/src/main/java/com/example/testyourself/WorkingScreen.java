@@ -1,13 +1,20 @@
 package com.example.testyourself;
 
+import static com.example.testyourself.MainActivity.userPref;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,7 +88,27 @@ public class WorkingScreen extends AppCompatActivity {
         {
             Toast.makeText(getBaseContext(), "Well done you got it right :)", Toast.LENGTH_SHORT).show();
             User.xp = User.xp + 50;
-            User.levelUpCheck();
+
+            //Saves xp to shared preferences
+            SharedPreferences.Editor editor = userPref.edit();
+            editor.putInt("xp", User.xp);
+            editor.commit();
+
+            //Checks for a level up
+            if(User.levelUpCheck() == 1)
+            {
+                //Show popup for leveling up
+                //Help was used from this online tutorial
+                //https://www.youtube.com/watch?v=-iLG0oucUI4&ab_channel=MarcoWagner
+                Dialog dialog = new Dialog(this);
+                dialog.setContentView(R.layout.activity_popup);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
+                //Saves level to shared preferences
+                editor.putInt("level", User.level);
+                editor.commit();
+            }
         }
     }
 
